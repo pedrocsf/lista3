@@ -1,72 +1,65 @@
 import 'dart:io';
 
 void main() {
-  int ta;
-  int tb;
-  
-  do {
-    ta = int.parse(stdin.readLineSync()!);
-  } while (ta < 1 || ta > 100);
-  
-  do {
-    tb = int.parse(stdin.readLineSync()!);
-  } while (tb < 1 || tb > 100);
-  
-  Set<int> conjuntoA = {};
 
-  while (conjuntoA.length < ta) {
-    String linha = stdin.readLineSync()!;
-    List<String> valores = linha.split(' ');
-    
-    for (String valor in valores) {
-      if (valor.trim().isNotEmpty) {
-        try {
-          int elemento = int.parse(valor);
-          conjuntoA.add(elemento);
+  int ta = 0;
+  while (ta < 1 || ta > 100) {
+    String? input = stdin.readLineSync();
+    if (input != null) {
+      ta = int.parse(input);
+    }
+  }
+  
 
-          if (conjuntoA.length >= ta) {
-            break;
+  int tb = 0;
+  while (tb < 1 || tb > 100) {
+    String? input = stdin.readLineSync();
+    if (input != null) {
+      tb = int.parse(input);
+    }
+  }
+  
+
+  Set<int> setA = {};
+  while (setA.length < ta) {
+    String? line = stdin.readLineSync();
+    if (line != null) {
+      List<String> values = line.split(' ');
+      for (String value in values) {
+        if (value.trim().isNotEmpty) {
+          int element = int.parse(value);
+          if (!setA.contains(element) && setA.length < ta) {
+            setA.add(element);
           }
-        } catch (e) {
-
         }
       }
     }
   }
   
-  Set<int> conjuntoB = {};
-  
-
-  while (conjuntoB.length < tb) {
-    String linha = stdin.readLineSync()!;
-    List<String> valores = linha.split(' ');
-    
-    for (String valor in valores) {
-      if (valor.trim().isNotEmpty) {
-        try {
-          int elemento = int.parse(valor);
-          conjuntoB.add(elemento);
-          
-
-          if (conjuntoB.length >= tb) {
-            break;
+  Set<int> setB = {};
+  while (setB.length < tb) {
+    String? line = stdin.readLineSync();
+    if (line != null) {
+      List<String> values = line.split(' ');
+      for (String value in values) {
+        if (value.trim().isNotEmpty) {
+          int element = int.parse(value);
+          if (!setB.contains(element) && setB.length < tb) {
+            setB.add(element);
           }
-        } catch (e) {
-
         }
       }
     }
   }
   
-  Set<int> uniao = {...conjuntoA, ...conjuntoB};
-  Set<int> intersecao = {...conjuntoA}..retainAll(conjuntoB);
-
-  List<int> uniaoOrdenada = uniao.toList()..sort();
-  List<int> intersecaoOrdenada = intersecao.toList()..sort();
-
-  String uniaoString = "(${uniaoOrdenada.join(',')})";
-  String intersecaoString = "(${intersecaoOrdenada.join(',')})";
+ 
+  Set<int> union = setA.union(setB);
+  Set<int> intersection = setA.intersection(setB);
   
-  print(uniaoString);
-  print(intersecaoString);
+
+  String unionStr = "(${union.join(',')})";
+  String intersectionStr = "(${intersection.join(',')})";
+  
+  print(unionStr);
+  print(intersectionStr);
 }
